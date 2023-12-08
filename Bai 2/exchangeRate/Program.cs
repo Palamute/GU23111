@@ -1,15 +1,20 @@
 ﻿using System;
-namespace exchangeRate
+
+namespace ExchangeRate
 {
-class Program
-{
-    private static void Main(string[] args)
+    class Program
     {
-        float ExchangRate = 23000;
-        float VND;
-        Console.WriteLine("nhap so tien VND: ");
-        VND = float.Parse(Console.ReadLine());
-        Console.WriteLine("so tien cua ban la: " + VND*ExchangRate);
+        private static void Main(string[] args)
+        {
+            double ExchangeRate = 23000.0;
+            double VND;
+
+            Console.WriteLine("Nhập số tiền VND: ");
+            VND = double.Parse(Console.ReadLine());
+
+            double USD = VND / ExchangeRate;
+
+            Console.WriteLine("Số tiền của bạn là: " + USD.ToString("N2") + " USD");
+        }
     }
-}
 }
