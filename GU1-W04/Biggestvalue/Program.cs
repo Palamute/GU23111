@@ -2,38 +2,34 @@
 {
     private static void Main(string[] args)
     {
-        int size;
-        int[] array;
-        do
+       int size = 0;
+       do{
+        Console.WriteLine("Nhap kich thuoc mang");
+        size = int.Parse(Console.ReadLine());
+        if(size>20) Console.WriteLine("gia tri nhap qua 20 yeu cau nhap lai");
+       }while (size>20);
+       int[] array = new int[size];
+       Console.WriteLine("nhapp phan tu cua mang: ");
+       for (int i = 0; i  <= array.Length-1; i++)
+       {
+        array[i] = int.Parse(Console.ReadLine());
+       }
+        Console.WriteLine("gia tri cua cac mang la: ");
+        for (int i = 0; i <= array.Length-1; i++)
         {
-            Console.WriteLine("Enter a size:");
-            size = Int32.Parse(Console.ReadLine());
-            if (size > 20)
-                Console.WriteLine("Size should not exceed 20");
-        } while (size > 20);
-        array = new int[size];
-        int i = 0;
-        while (i < array.Length)
-        {
-            Console.WriteLine("Enter element" + (i + 1) + " : ");
-            array[i] = Int32.Parse(Console.ReadLine());
-            i++;
-        }
-        Console.WriteLine("Property list: ");
-        for (int j = 0; j < array.Length; j++)
-        {
-            Console.WriteLine(array[j] + "\t");
+            Console.WriteLine(array[i]+"\t");
         }
         int max = array[0];
-        int index = 1;
-        for (int j = 0; j < array.Length; j++)
+        int indexArrayList = 0;
+        for (int i = 0; i <= array.Length-1; i++)
         {
-            if (array[j] > max)
+            if(array[i]>max)
             {
-                max = array[j];
-                index = j + 1;
+                max = array[i];
+                indexArrayList = i+1;
             }
         }
-        Console.WriteLine("The largest property value in the list is " + max + " ,at position " + index);
+        Console.WriteLine("gia tri lon nhat la"+ max + "co vi tri "+ indexArrayList);
+       
     }
 }
