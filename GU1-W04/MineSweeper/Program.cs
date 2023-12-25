@@ -1,46 +1,77 @@
-﻿internal class Program
+﻿﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace mineText
 {
-    private static void Main(string[] args)
+    class Program
     {
-           string[,] map = { { "*", ".", "*", ".", "." } };
+        static void Main(string[] args)
+        {
+            string[,] map = {
+            {"*", ".", ".", "."},
+            {".", ".", ".", "."},
+            {".", "*", ".", "."},
+            {".", ".", ".", "."}
+        };
             int MAP_HEIGHT = map.GetLength(0);
             int MAP_WIDTH = map.GetLength(1);
 
             string[,] mapReport = new string[MAP_HEIGHT, MAP_WIDTH];
-
-            for (int xOrdinate = 0; xOrdinate < map.GetLength(1); xOrdinate++)
+            for (int yOrdinate = 0; yOrdinate < MAP_HEIGHT; yOrdinate++)
             {
-                string curentCell = map[0, xOrdinate];
-                if (curentCell.Equals("*"))
+                for (int xOrdinate = 0; xOrdinate < map.GetLength(0); xOrdinate++)
                 {
-                    mapReport[0, xOrdinate] = "*";
-                }
-                else
-                {
-                    int[,] NEIGHBOURS_ORDINATE = { { 0, xOrdinate - 1 }, { 0, xOrdinate + 1 } };
-
-                    int minesAround = 0;
-                    for (int i = 0; i < NEIGHBOURS_ORDINATE.GetLength(0); i++)
+                    string curentCell = map[yOrdinate, xOrdinate];
+                    if (curentCell.Equals("*"))
                     {
-                        int xOrdinateOfNeighbour = NEIGHBOURS_ORDINATE[i, 1];
-                        int yOrdinateOfNeighbour = NEIGHBOURS_ORDINATE[i, 0];
-
-                        bool isOutOfMapNeighbour = xOrdinateOfNeighbour < 0 || xOrdinateOfNeighbour == MAP_WIDTH;
-                        if (isOutOfMapNeighbour) continue;
-
-                        bool isMineOwnerNeighbour = map[yOrdinateOfNeighbour, xOrdinateOfNeighbour].Equals("*");
-                        if (isMineOwnerNeighbour) minesAround++;
+                        mapReport[yOrdinate, xOrdinate] = "*";
                     }
+                    else
+                    {
+                        int[,] NEIGHBOURS_ORDINATE = {
+                        {yOrdinate - 1, xOrdinate - 1}, {yOrdinate - 1, xOrdinate}, {yOrdinate - 1, xOrdinate + 1},
+                        {yOrdinate, xOrdinate - 1}, {yOrdinate, xOrdinate + 1},
+                        {yOrdinate + 1, xOrdinate - 1}, {yOrdinate + 1, xOrdinate}, {yOrdinate + 1, xOrdinate + 1},};
 
-                    mapReport[0, xOrdinate] = minesAround.ToString();
+                        int minesAround = 0;
+                        int length = NEIGHBOURS_ORDINATE.GetLength(0);
+                        for (int i = 0; i < length; i++)
+                        {
+                            int xOrdinateOfNeighbour = NEIGHBOURS_ORDINATE[i, 1];
+                            int yOrdinateOfNeighbour = NEIGHBOURS_ORDINATE[i, 0];
+
+                            bool isOutOfMapNeighbour = xOrdinateOfNeighbour < 0
+                                    || xOrdinateOfNeighbour == MAP_WIDTH
+                                    || yOrdinateOfNeighbour < 0
+                                    || yOrdinateOfNeighbour == MAP_HEIGHT;
+                            if (isOutOfMapNeighbour)
+                            {
+                                continue;
+                            }
+
+                            bool isMineOwnerNeighbour = map[yOrdinateOfNeighbour, xOrdinateOfNeighbour].Equals("*");
+                            if (isMineOwnerNeighbour)
+                            {
+                                minesAround++;
+                            }
+                        }
+
+                        mapReport[yOrdinate, xOrdinate] = minesAround.ToString();
+                    }
                 }
             }
 
-            for (int xOrdinate = 0; xOrdinate < MAP_WIDTH; xOrdinate++)
+            for (int yOrdinate = 0; yOrdinate < MAP_HEIGHT; yOrdinate++)
             {
-                String currentCellReport = mapReport[0, xOrdinate];
-                Console.Write(currentCellReport);
+                Console.WriteLine("\n");
+                for (int xOrdinate = 0; xOrdinate < MAP_WIDTH; xOrdinate++)
+                {
+                    String currentCellReport = mapReport[yOrdinate, xOrdinate];
+                    Console.Write(currentCellReport);
+                }
             }
-            
+            Console.ReadLine();
+        }
     }
 }
