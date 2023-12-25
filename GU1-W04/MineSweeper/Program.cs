@@ -8,38 +8,38 @@ namespace mineText
     {
         static void Main(string[] args)
         {
-            string[,] map = {
+            string[,] array = {
             {"*", ".", ".", "."},
             {".", ".", ".", "."},
             {".", "*", ".", "."},
             {".", ".", ".", "."}
         };
-            int MAP_HEIGHT = map.GetLength(0);
-            int MAP_WIDTH = map.GetLength(1);
+            int MAP_HEIGHT = array.GetLength(0);
+            int MAP_WIDTH = array.GetLength(1);
 
             string[,] mapReport = new string[MAP_HEIGHT, MAP_WIDTH];
-            for (int yOrdinate = 0; yOrdinate < MAP_HEIGHT; yOrdinate++)
+            for (int i = 0; i < MAP_HEIGHT; i++)
             {
-                for (int xOrdinate = 0; xOrdinate < map.GetLength(0); xOrdinate++)
+                for (int j = 0; j < array.GetLength(0); j++)
                 {
-                    string curentCell = map[yOrdinate, xOrdinate];
+                    string curentCell = array[i, j];
                     if (curentCell.Equals("*"))
                     {
-                        mapReport[yOrdinate, xOrdinate] = "*";
+                        mapReport[i, j] = "*";
                     }
                     else
                     {
                         int[,] NEIGHBOURS_ORDINATE = {
-                        {yOrdinate - 1, xOrdinate - 1}, {yOrdinate - 1, xOrdinate}, {yOrdinate - 1, xOrdinate + 1},
-                        {yOrdinate, xOrdinate - 1}, {yOrdinate, xOrdinate + 1},
-                        {yOrdinate + 1, xOrdinate - 1}, {yOrdinate + 1, xOrdinate}, {yOrdinate + 1, xOrdinate + 1},};
+                        {i - 1, j - 1}, {i - 1, j}, {i - 1, j + 1},
+                        {i, j - 1}, {i, j + 1},
+                        {i + 1, j - 1}, {i + 1, j}, {i + 1, j + 1},};
 
                         int minesAround = 0;
                         int length = NEIGHBOURS_ORDINATE.GetLength(0);
-                        for (int i = 0; i < length; i++)
+                        for (int q = 0; q < length; q++)
                         {
-                            int xOrdinateOfNeighbour = NEIGHBOURS_ORDINATE[i, 1];
-                            int yOrdinateOfNeighbour = NEIGHBOURS_ORDINATE[i, 0];
+                            int xOrdinateOfNeighbour = NEIGHBOURS_ORDINATE[q, 1];
+                            int yOrdinateOfNeighbour = NEIGHBOURS_ORDINATE[q, 0];
 
                             bool isOutOfMapNeighbour = xOrdinateOfNeighbour < 0
                                     || xOrdinateOfNeighbour == MAP_WIDTH
@@ -50,14 +50,14 @@ namespace mineText
                                 continue;
                             }
 
-                            bool isMineOwnerNeighbour = map[yOrdinateOfNeighbour, xOrdinateOfNeighbour].Equals("*");
+                            bool isMineOwnerNeighbour = array[yOrdinateOfNeighbour, xOrdinateOfNeighbour].Equals("*");
                             if (isMineOwnerNeighbour)
                             {
                                 minesAround++;
                             }
                         }
 
-                        mapReport[yOrdinate, xOrdinate] = minesAround.ToString();
+                        mapReport[i, j] = minesAround.ToString();
                     }
                 }
             }
