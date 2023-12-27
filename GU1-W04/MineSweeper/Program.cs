@@ -14,11 +14,11 @@ namespace mineText
             {".", "*", ".", "."},
             {".", ".", ".", "."}
         };
-            int MAP_HEIGHT = array.GetLength(0);
-            int MAP_WIDTH = array.GetLength(1);
+            int row = array.GetLength(0);
+            int column = array.GetLength(1);
 
-            string[,] mapReport = new string[MAP_HEIGHT, MAP_WIDTH];
-            for (int i = 0; i < MAP_HEIGHT; i++)
+            string[,] mapReport = new string[row, column];
+            for (int i = 0; i < row; i++)
             {
                 for (int j = 0; j < array.GetLength(0); j++)
                 {
@@ -42,9 +42,9 @@ namespace mineText
                             int yOrdinateOfNeighbour = NEIGHBOURS_ORDINATE[q, 0];
 
                             bool isOutOfMapNeighbour = xOrdinateOfNeighbour < 0
-                                    || xOrdinateOfNeighbour == MAP_WIDTH
+                                    || xOrdinateOfNeighbour == column
                                     || yOrdinateOfNeighbour < 0
-                                    || yOrdinateOfNeighbour == MAP_HEIGHT;
+                                    || yOrdinateOfNeighbour == row;
                             if (isOutOfMapNeighbour)
                             {
                                 continue;
@@ -62,13 +62,12 @@ namespace mineText
                 }
             }
 
-            for (int yOrdinate = 0; yOrdinate < MAP_HEIGHT; yOrdinate++)
+            for (int i = 0; i < row; i++)
             {
                 Console.WriteLine("\n");
-                for (int xOrdinate = 0; xOrdinate < MAP_WIDTH; xOrdinate++)
+                for (int j = 0; j < column; j++)
                 {
-                    String currentCellReport = mapReport[yOrdinate, xOrdinate];
-                    Console.Write(currentCellReport);
+                    Console.Write(mapReport[i, j]);
                 }
             }
             Console.ReadLine();
